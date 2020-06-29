@@ -1,68 +1,138 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# IronConnect
 
-## Available Scripts
+IronConnect is a social network made with the idea of connecting graduated ironhackers with new ironhackers as well as portraing a list of the students in
+Lets new Ironhackers and new Ironhackers connect with each other, w
 
-In the project directory, you can run:
 
-### `npm start`
+## User Stories
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+-  **404:** As an anon/user I can see a 404 page if I try to reach a page that does not exist so that I know it's my fault
+-  **Signup:** As an anon I can sign up in the platform with my detail and information so that I can start creating and managing my backlog
+-  **Login:** As a user I can login to the platform so that I can start creating and managing my backlog
+-  **Logout:** As a user I can logout from the platform so no one else can modify my information
+-  **Profile** As a user I can see and edit my profile 
+-  **Create Posts** As a user I can edit new posts  
+-  **Delete Posts** As a user I can delete the posts that I edited
+-  **Linking Posts** As a user I can like or dislike posts 
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+## Backlog
 
-### `npm test`
+- Github
+- Filter profiles
+- Filter posts
+- Comment a post
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+<br>
 
-### `npm run build`
+# Client / Frontend
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## React Router Routes (React App)
+| Path                      | Component                      | Permissions | Behavior                                                     |
+| ------------------------- | --------------------           | ----------- | ------------------------------------------------------------ |
+| `/`                       | Landing                        | public `<Route>`            | Home page                                        |
+| `/signup`                 | SignupPage                     | anon only  `<AnonRoute>`    | Signup form, link to login, navigate to homepage after signup |
+| `/login`                  | LoginPage                      | anon only `<AnonRoute>`     | Login form, link to signup, navigate to profile after login  |
+| `/logout`                 | n/a                            | user only `<PrivateRoute>`  | Navigate to homepage after logout, expire session             |
+| `/backlog/github`         | NavBar, FooterBar              | users only `<PrivateRoute>` | Shows all the github repository on backlog                    |
+| `/ironhackers`            | Profiles, NavBar, FooterBar    | public     `<Route>`        | View the profiles of the Ironhackers                          |
+| `/ironhackers/id`         | ProfileDetails                 | public     `<Route>`        | See profile display page                                      |
+| `/add/:id`                | ElementInfo                    | user only `<PrivateRoute>`  | Add an element to the backlog                                 |
+| `/profile`                | Profile, Stats                 | user only  `<PrivateRoute>` | Check profile with stat information                           |
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+</br>
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Components
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- NavBar
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+- SignUp
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+- IronConnect
 
-## Learn More
+- Posts
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+# Server / Backend
 
-### Code Splitting
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+## Models
 
-### Analyzing the Bundle Size
+UserModel
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+```javascript
+{
+  name: { type: String, required: true },
+  email: { type: String, required: true, unique: true },
+  password: { type: String, required: true },
+  avatar: { type: String },
+  date: { type: Date, default: Date.now }});
+}
+```
 
-### Making a Progressive Web App
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
 
-### Advanced Configuration
+ProfileModel
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+```javascript
+ { user: { type: mongoose.Schema.Types.ObjectId, ref: 'user' },
+  website: { type: String },
+  
+  bio: { type: String },
+  
+  skills: { type: [String], required: true },
+  githubusername: { type: String },
+  experience: [
+    { title: { type: String, required: true },
+      company: { type: String, required: true },
+      location: { type: String },
+      description: { type: String } } ],
+      
+  education: [
+    { school: { type: String, required: true },
+      degree: { type:String, require:true},
+      description: { type: String } ],
+    
+  socialmedia: { youtube: { type: String },
+    twitter: { type: String },
+    facebook: { type: String },
+    linkedin: { type: String },
+    instagram: { type: String }
+  
+});
 
-### Deployment
+PostsModel
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+```javascript
+   user: { type: Schema.Types.ObjectId },
+  text: { type: String, required: true },
+  name: { type: String },
+  pic: { type: String },
+  likes: { user: { type: Schema.Types.ObjectId } } ,
+  date: { type: Date, default: Date.now });
 
-### `npm run build` fails to minify
+<br>
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+## API Endpoints (backend routes)
+
+<br>
+
+
+## Links
+
+### GitHub Projects
+
+[Link to GitHub projects](https://github.com/LucyJunior/IronConnect) 
+
+### Git
+
+[Client repository Link](https://github.com/LucyJunior/IronConnect)
+
+[Server repository Link](https://github.com/LucyJunior/IronConnect)
+
+[Deployed App Link](#)
+
+### Slides
+
+[Slides Link](#)
