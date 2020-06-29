@@ -54,10 +54,7 @@ class Signin extends Component {
                 //passing the json web token
                 this.authenticate(data, () => {
                     this.setState({ redirectToRefer: true})
-                })
-
-                
-                
+                });  
             }
             
         });
@@ -65,20 +62,20 @@ class Signin extends Component {
 
     signin = (user) => {
 
-        return fetch("http//localhost:8080/signin", {
-            method: "POST",
-             headers: {
-                 Accept: "application/json",
-                "Content-Type": "application/json"
-             },
-             body: JSON.stringify(user)
-         })
-         .then(response => {
-             return response.json()
-         })
-         .catch(err => console.log(err));
-    
-    };
+        return fetch("http://localhost:8080/api/signin", {
+           method: "POST",
+            headers: {
+                Accept: "application/json",
+               "Content-Type": "application/json"
+            },
+            body: JSON.stringify(user)
+        })
+        .then(response => {
+            return response.json()
+        })
+        .catch(err => console.log(err));
+   
+   };
 
     signinForm = (email, password) => (
 
