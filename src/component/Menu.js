@@ -42,9 +42,9 @@ const Menu = ({ history }) => (
                 <>
 
                     <li className="nav-item">
-                        <a className="nav-link" style={(isActive(history, /*path*/ "/signout"), { cursor: "pointer", color: "#fff" })
+                        <span className="nav-link" style={(isActive(history, /*path*/ "/signout"), { cursor: "pointer", color: "#fff" })
                         }
-                            onClick={() => signout(() => history.push('/'))}>Sign Out</a>
+                            onClick={() => signout(() => history.push('/'))}>Sign Out</span>
                     </li>
 
                     <li className="nav-item">

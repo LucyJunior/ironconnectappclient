@@ -20,7 +20,7 @@ class Profile extends Component {
     //refactoring
     //user id as an argument
     init = Id => {
-        const token = isAuthenticated().token
+        const token = isAuthenticated().token;
         read(Id, token).then(data => {
             if (data.error) {
                 //if theres any error if user is not autheticated so we re direct them to sign in page otherwise
@@ -75,13 +75,10 @@ class Profile extends Component {
                             <p>{`Joined ${new Date(user.created).toDateString()}`}</p>
                         </div>
 
-                        {isAuthenticated().user && isAuthenticated().user._id == user._id && (
+                        {isAuthenticated().user && isAuthenticated().user._id === user._id && (
                             <div className="d-inline-block" >
                                 <Link className="btn btn-raised btn-success mr-5" to={`/user/edit/${user._id}`}> Edit Profile</Link>
-                                <DeleteUser />
-
-
-
+                                <DeleteUser Id={user._id} />
                             </div>
                         )}
 
@@ -95,3 +92,5 @@ class Profile extends Component {
 export default Profile;
 
 //if authenticated user and his id matches the profile then he can edit
+
+//props user id line 82
