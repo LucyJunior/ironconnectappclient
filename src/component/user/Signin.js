@@ -17,7 +17,7 @@ class Signin extends Component {
 
     handleChange = name => event => {
 
-        this.setState({error: " "})
+        this.setState({ error: " "})
         this.setState({ [name]: event.target.value });
     };
 

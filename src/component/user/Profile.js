@@ -13,11 +13,31 @@ class Profile extends Component {
 
     componentDidMount() {
 
-        console.log(
-            //get request to the backend to get info about the user
-            "user id from route params: ", this.props.match.params.Id)
 
-    }
+            //get request to the backend to get info about the user
+            const Id = this.props.match.params.Id;
+            fetch(`${process.env.REACT_APP_API_URL}/user/${Id}`, {
+                method: "GET",
+                headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${isAuthenticated().token}`
+                }
+            })
+            //response of the fetch
+            .then(res => {
+                return res.json()
+
+            })
+
+            .then(data => {
+                if(data.error) {
+                    console.log("error")
+                } else{
+                    this.setState({ user: data })
+                }
+            });
+    };
 
 
     render () {
