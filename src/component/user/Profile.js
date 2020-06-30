@@ -3,6 +3,8 @@ import { isAuthenticated } from '../auth';
 import { Redirect, Link } from 'react-router-dom';
 import { read } from '../user/apiUser';
 import DefaultProfile from '../../images/avatar2.png';
+import DeleteUser from '../user/DeleteUser';
+
 
 class Profile extends Component {
 
@@ -30,9 +32,19 @@ class Profile extends Component {
         });
 
     };
+
+    //LIFECYCLEMETHODS
+
     //grab the id from the parameter and give the user id to init method so it process whatever it needs to be done 
     componentDidMount() {
         //get request to the backend to get info about the user
+        const Id = this.props.match.params.Id;
+        this.init(Id);
+
+    };
+
+    //Each Id will receive its own info buttons
+    componentWillReceiveProps(props) {
         const Id = this.props.match.params.Id;
         this.init(Id);
 
@@ -66,7 +78,7 @@ class Profile extends Component {
                         {isAuthenticated().user && isAuthenticated().user._id == user._id && (
                             <div className="d-inline-block" >
                                 <Link className="btn btn-raised btn-success mr-5" to={`/user/edit/${user._id}`}> Edit Profile</Link>
-                                <button className="btn btn-raised btn-danger">Delete Profile</button>
+                                <DeleteUser />
 
 
 
