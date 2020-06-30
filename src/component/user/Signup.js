@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import { signup } from "../auth";
 
 class Signup extends Component {
 
@@ -32,7 +33,7 @@ class Signup extends Component {
     
         //console.log(user);
 
-        this.signup(user)
+        signup(user)
         .then(data => {
             if(data.error) this.setState({error: data.error});
             else this.setState({
@@ -45,30 +46,14 @@ class Signup extends Component {
         });
     };
 
-    signup = (user) => {
-
-         return fetch("http://localhost:8080/api/signup", {
-            method: "POST",
-             headers: {
-                 Accept: "application/json",
-                "Content-Type": "application/json"
-             },
-             body: JSON.stringify(user)
-         })
-         .then(response => {
-             return response.json()
-         })
-         .catch(err => console.log(err));
-    
-    };
 
     signupForm = (name, email, password) => (
 
         <form>
             <div className="form-group">
                 <label className="text-muted">Name</label>
-                <input  onChange={this.handleChange("name")} type="text" className="form-control" value={name} />
-            </div>
+                <input  o type="text" className="form-control" value={name} />
+            </div>nChange={this.handleChange("name")}
             <div className="form-group">
                 <label className="text-muted">Email</label>
                 <input onChange={this.handleChange("email")} type="email" className="form-control" value={email}/>

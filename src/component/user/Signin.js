@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import {Redirect} from 'react-router-dom';
+import {signin, authenticate } from "../auth";
 
 class Signin extends Component {
 
@@ -20,17 +21,7 @@ class Signin extends Component {
         this.setState({ [name]: event.target.value });
     };
 
-      authenticate = (jwt, next) => {
-
-        //will store the token in the local storage and then handle the call back 
-
-
-          if(typeof window !== "undefined") {
-              localStorage.setItem("jwt", JSON.stringify(jwt));
-              next();
-
-          }
-      }
+      
 
 
 //onclick method hat gets the event
@@ -45,14 +36,14 @@ class Signin extends Component {
             
         };
 
-        this.signin(user)
+        signin(user)
         .then(data => {
             if(data.error) {
                 this.setState({error: data.error, loading: false});
              } else {
                 //authenticate the user
                 //passing the json web token
-                this.authenticate(data, () => {
+                authenticate(data, () => {
                     this.setState({ redirectToRefer: true})
                 });  
             }
@@ -60,22 +51,7 @@ class Signin extends Component {
         });
     };
 
-    signin = (user) => {
 
-        return fetch("http://localhost:8080/api/signin", {
-           method: "POST",
-            headers: {
-                Accept: "application/json",
-               "Content-Type": "application/json"
-            },
-            body: JSON.stringify(user)
-        })
-        .then(response => {
-            return response.json()
-        })
-        .catch(err => console.log(err));
-   
-   };
 
     signinForm = (email, password) => (
 

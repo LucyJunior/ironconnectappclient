@@ -1,5 +1,6 @@
 import React from 'react'
-import { Link, withRouter } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom';
+import { signout, isAuthenticated} from '../component/auth'
 
 //changing link color
 //this two arguments, if matches it gives a color otherwise all the links will have a different color
@@ -8,36 +9,6 @@ const isActive = (history, path) => {
     else return { color: "#ffffff" }
 }
 
-export const signout = (next) => {
-    //will remove in the client side the jwt
-    if (typeof window !== "undefined") localStorage.removeItem("jwt");
-    next();
-    //once we remove it, redirect the user
-    return fetch("http://localhost:8080/api/signout", {
-        method: "GET"
-    })
-        .then(response => {
-            console.log('signout', response)
-            return response.json();
-        })
-
-        .catch(err => console.log(err))
-
-};
-
-//take if the user 
-
-export const isAuthenticated = () => {
-    if (typeof window == "undefined") {
-        return false;
-    }
-
-    if (localStorage.getItem("jwt")) {
-        return JSON.parse(localStorage.getItem("jwt"))
-    } else {
-        return false
-    }
-};
 
 //props
 const Menu = ({ history }) => (
@@ -72,7 +43,13 @@ const Menu = ({ history }) => (
                     </li>
 
                     <li className="nav-item">
-                        <a className="nav-link">{isAuthenticated().user.name}</a>
+                    <Link
+                            to={`/user/${isAuthenticated().user._id}`}
+                            style={isActive(history, `/user/${isAuthenticated().user._id}`)}
+                            className="nav-link"
+                        >
+                            {`${isAuthenticated().user.name}'s profile`}
+                        </Link>
                     </li>
 
                 </>
