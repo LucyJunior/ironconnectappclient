@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import { signup } from "../auth";
+import { Link } from "react-router-dom";
 
 class Signup extends Component {
 
@@ -52,8 +53,8 @@ class Signup extends Component {
         <form>
             <div className="form-group">
                 <label className="text-muted">Name</label>
-                <input  o type="text" className="form-control" value={name} />
-            </div>nChange={this.handleChange("name")}
+                <input  onChange={this.handleChange("name")} type="text" className="form-control" value={name} />
+            </div>
             <div className="form-group">
                 <label className="text-muted">Email</label>
                 <input onChange={this.handleChange("email")} type="email" className="form-control" value={email}/>
@@ -77,7 +78,7 @@ class Signup extends Component {
         <div className="alert alert-danger" style={{display: error ? "" : "none"}}>{error}</div>
 
 
-        <div className="alert alert-info" style={{display: open ? "" : "none"}}>WELCOME BISH! Account is created. Please sign in</div>
+        <div className="alert alert-info" style={{display: open ? "" : "none"}}>WELCOME BISH! Account is created. Please <Link to="/signin">Sign In</Link>. </div>
 
         {this.signupForm(name, email, password)}
         
