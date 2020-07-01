@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { isAuthenticated } from '../auth';
-import { read } from '../user/apiUser';
+import { read, update } from '../user/apiUser';
+import { Redirect } from 'react-router-dom';
 
 class EditProfile extends Component {
     constructor() {
@@ -9,7 +10,8 @@ class EditProfile extends Component {
             id: "",
             name: "",
             email: "",
-            password: ""
+            password: "",
+            redirectToProfile: false
         }
     }
 
@@ -17,9 +19,9 @@ class EditProfile extends Component {
         const token = isAuthenticated().token;
         read(Id, token).then(data => {
             if (data.error) {
-                this.setState({ redirectToSignin: true });
+                this.setState({ redirectToProfile: true });
             } else {
-                this.setState({ id: data._id, name: data.name, email: data.email})
+                this.setState({ id: data._id, name: data.name, email: data.email, error:''})
             }
         });
 
@@ -46,24 +48,23 @@ class EditProfile extends Component {
         };
     
         //console.log(user);
+        const Id = this.props.match.params.Id; 
+        const token = isAuthenticated().token;
 
-        signup(user)
+        update(Id, token, user)
         .then(data => {
             if(data.error) this.setState({error: data.error});
             else this.setState({
-                error: "",
-                name: "",
-                email: "",
-                password: "",
-                open: true
-            });
+                redirectToProfile: true
         });
+
+    });
     };
 
 
 
 
-    signupForm = (name, email) => (
+    signupForm = (name, email, password) => (
 
         <form>
             <div className="form-group">
@@ -79,18 +80,21 @@ class EditProfile extends Component {
                 <input onChange={this.handleChange("password")} type="password" className="form-control" value={password}/>
             </div>
 
-            <button onClick={this.clickSubmit} className="btn btn-raised btn-primary"> Submit</button>
+            <button onClick={this.clickSubmit} className="btn btn-raised btn-primary"> Update</button>
         </form>
     );
         
 
     render() {
-        const { name, email} = this.state;
+        const { id, name, email, password, redirectToProfile} = this.state;
+        if(redirectToProfile) {
+           return  <Redirect to={`/user/${id} `} />;
+        }
 
         return (
             <div className="container">
                 <h2 className="mt-5 mb-5">Edit Profile</h2>
-                {this.signupForm(name, email)}
+                {this.signupForm(name, email, password)}
 
             </div>
         );
