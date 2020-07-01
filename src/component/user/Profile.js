@@ -4,6 +4,7 @@ import { Redirect, Link } from 'react-router-dom';
 import { read } from '../user/apiUser';
 import DefaultProfile from '../../images/avatar2.png';
 import DeleteUser from '../user/DeleteUser';
+import FollowProfileButton from './FollowProfileButton';
 
 
 class Profile extends Component {
@@ -11,10 +12,41 @@ class Profile extends Component {
     constructor() {
         super()
         this.state = {
-            user: "",
-            redirectToSignin: false
-        }
+            user: {following: [], followers: []},
+            redirectToSignin: false,
+            following: false,
+            error: ''
+        };
     }
+
+    //check if we are following an user or not
+    chechFollow = user => {
+        const jwt = isAuthenticated();
+        const match = user.followers.find(follower => {
+            //one id has many other followers and the other way around
+            //if is found is already in the following list
+            return follower._id === jwt.user._id;
+        });
+        return match;
+    };
+
+    //req to the backed
+
+    clickFollowButton = apiCall => {
+        const Id = this.props.match.params.Id;
+        const token = isAuthenticated().token;
+
+        apiCall(Id, token, this.state.user._id)
+        .then(data => {
+            if(data.error) {
+                this.setState({error: data.error})
+            } else {
+                this.setState({user: data, following: !this.state.following})
+            }
+        });
+
+    };
+
 
 
     //refactoring
@@ -27,11 +59,13 @@ class Profile extends Component {
                 //show the info
                 this.setState({ redirectToSignin: true });
             } else {
-                this.setState({ user: data })
+                let following = this.chechFollow(data)
+                this.setState({ user: data, following });
             }
         });
 
     };
+
 
     //LIFECYCLEMETHODS
 
@@ -75,11 +109,13 @@ class Profile extends Component {
                             <p>{`Joined ${new Date(user.created).toDateString()}`}</p>
                         </div>
 
-                        {isAuthenticated().user && isAuthenticated().user._id === user._id && (
+                        {isAuthenticated().user && isAuthenticated().user._id === user._id ? (
                             <div className="d-inline-block" >
                                 <Link className="btn btn-raised btn-success mr-5" to={`/user/edit/${user._id}`}> Edit Profile</Link>
                                 <DeleteUser Id={user._id} />
                             </div>
+                        ) : (
+                            <FollowProfileButton  following={this.state.following} onButtonClick={this.clickFollowButton} />
                         )}
 
                     </div>
