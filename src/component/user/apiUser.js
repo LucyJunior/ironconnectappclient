@@ -75,6 +75,11 @@ export const list = () => {
 
 
 export const follow = (Id, token, followId) => {
+    if (!followId) {
+        return {
+            err: 'Please send FollowID '
+        }
+    }
     return fetch(`${process.env.REACT_APP_API_URL}/api/user/follow`, {
         method: "PUT",
         headers: {

@@ -1,7 +1,7 @@
 import React, { Component } from  'react';
 import {follow, unfollow} from './apiUser';
 
-class FollowProfileButon extends Component {
+class FollowProfileButton extends Component {
     followClick = () => {
         this.props.onButtonClick(follow)
     };
@@ -22,7 +22,7 @@ class FollowProfileButon extends Component {
                     ) : (
 
                         <button onClick={this.unfollowClick} className="btn btn-warning btn-raised">
-                    UnFollow</button>
+                    UnFollow </button>
 
                     )
                 }
@@ -33,4 +33,4 @@ class FollowProfileButon extends Component {
     }
 }
 
-export default FollowProfileButon;
+export default FollowProfileButton;

@@ -12,7 +12,8 @@ class Users extends Component {
     }
 
     componentDidMount() {
-        //method list that will lit all users
+        //method list that will list all users
+        
         list().then(data => {
             if (data.error) {
                 console.log(data.error);
@@ -24,7 +25,7 @@ class Users extends Component {
 
     //key, react requires us to have an index to each element we are redering
 
-    renderUsers = (users) => (
+    renderUsers = users => (
         <div className="row" >
 
             {users.map((user, i) => {
@@ -34,7 +35,7 @@ class Users extends Component {
                     <div className="card-body">
                         <h5 className="card-title">{user.name}</h5>
                         <p className="card-text">{user.email}</p>
-                        <Link to={`/user/${user._id}`} className="btn btn-raised btn-primary btn-sm">View Profile</Link>
+                        <Link to={`/api/user/${user._id}`} className="btn btn-raised btn-primary btn-sm">View Profile</Link>
                     </div>
                 </div>
             })}

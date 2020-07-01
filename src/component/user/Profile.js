@@ -19,21 +19,23 @@ class Profile extends Component {
         };
     }
 
-    //check if we are following an user or not
-    checkFollow = user => {
+     //check if we are following an user or not
+     checkFollow = user => {
         const jwt = isAuthenticated();
+        console.log(user.followers)
         const match = user.followers.find(follower => {
             //one id has many other followers and the other way around
             //if is found is already in the following list
-            return follower._id === jwt.user._id;
-        });
-        return match;
+            console.log(follower)
+            return follower._Id == jwt.user._id
+        })
+        return match
     };
 
     //req to the backed
 
     clickFollowButton = apiCall => {
-        const Id = this.props.match.params.Id;
+        const Id = isAuthenticated().user._id;
         const token = isAuthenticated().token;
 
         apiCall(Id, token, this.state.user._id)
@@ -60,7 +62,7 @@ class Profile extends Component {
                 this.setState({ redirectToSignin: true });
             } else {
                 let following = this.checkFollow(data)
-                this.setState({ user: data, following });
+                this.setState({ user: data, following: following });
             }
         });
 
@@ -79,7 +81,7 @@ class Profile extends Component {
 
     //Each Id will receive its own info buttons
     componentWillReceiveProps(props) {
-        const Id = this.props.match.params.Id;
+        const Id = props.match.params.Id;
         this.init(Id);
 
     };
@@ -95,9 +97,7 @@ class Profile extends Component {
                 <div className="row">
 
                     <div className="col-md-6">
-
-
-                        <img src="" className="card-img-top" src={DefaultProfile} alt="Card image cap" alt={user.name} style={{ width: '100%', height: '15vw', objectFit: 'cover' }} />
+                   <img src="" className="card-img-top" src={DefaultProfile} alt="Card image cap" alt={user.name} style={{ width: '100%', height: '15vw', objectFit: 'cover' }} />
 
                     </div>
 
