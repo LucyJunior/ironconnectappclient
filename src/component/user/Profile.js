@@ -20,7 +20,7 @@ class Profile extends Component {
     }
 
     //check if we are following an user or not
-    chechFollow = user => {
+    checkFollow = user => {
         const jwt = isAuthenticated();
         const match = user.followers.find(follower => {
             //one id has many other followers and the other way around
@@ -59,7 +59,7 @@ class Profile extends Component {
                 //show the info
                 this.setState({ redirectToSignin: true });
             } else {
-                let following = this.chechFollow(data)
+                let following = this.checkFollow(data)
                 this.setState({ user: data, following });
             }
         });

@@ -73,3 +73,38 @@ export const list = () => {
     .catch(err => console.log(err));
 };
 
+
+export const follow = (Id, token, followId) => {
+    return fetch(`${process.env.REACT_APP_API_URL}/api/user/follow`, {
+        method: "PUT",
+        headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`
+        }, 
+        body: JSON.stringify({Id, followId})
+    })
+    .then(res => {
+        return res.json()
+
+    })
+    .catch(err => console.log(err));
+};
+
+export const unfollow = (Id, token, unfollowId) => {
+    return fetch(`${process.env.REACT_APP_API_URL}/api/user/unfollow`, {
+        method: "PUT",
+        headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`
+        }, 
+        body: JSON.stringify({Id, unfollowId})
+    })
+    .then(res => {
+        return res.json()
+
+    })
+    .catch(err => console.log(err));
+};
+
