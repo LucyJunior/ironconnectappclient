@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import { isAuthenticated } from '../auth';
-import { create } from '../user/apiPost';
+import { create } from '../../component/post/newPost';
 import { Redirect } from 'react-router-dom';
-import DefaultProfile from '../../images/avatar2.png';
+import DefaultPost from '../../images/Ironhack.png';
 
 
 class NewPost extends Component {

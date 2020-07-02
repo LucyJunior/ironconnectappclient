@@ -1,7 +1,7 @@
 
 import React, { Component } from "react";
 import { list } from "./apiPost";
-import DefaultProfile from '../../images/avatar3.png';
+import DefaultPost from '../../images/Ironhack.png';
 import { Link } from "react-router-dom";
 
 
@@ -91,6 +91,7 @@ class Posts extends Component {
         );
     };
 
+    //because is it an erray we need to check for the length in line 100
     render() {
         const { posts, page } = this.state;
         return (

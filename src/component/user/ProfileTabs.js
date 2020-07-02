@@ -4,7 +4,7 @@ import DefaultProfile from '../../images/avatar2.png';
 
 class ProfileTabs extends Component {
     render() {
-        const { following, followers } = this.props
+        const { following, followers, posts } = this.props
         return (
 
             <>

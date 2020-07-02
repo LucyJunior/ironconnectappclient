@@ -6,6 +6,7 @@ import DefaultProfile from '../../images/avatar2.png';
 import DeleteUser from '../user/DeleteUser';
 import FollowProfileButton from './FollowProfileButton';
 import ProfileTabs from './ProfileTabs';
+import { listByUser } from "../post/apiPost";
 
 
 class Profile extends Component {
@@ -16,7 +17,8 @@ class Profile extends Component {
             user: { following: [], followers: [] },
             redirectToSignin: false,
             following: false,
-            error: ''
+            error: '',
+            posts: []
         };
     }
 
@@ -64,9 +66,21 @@ class Profile extends Component {
             } else {
                 let following = this.checkFollow(data)
                 this.setState({ user: data, following: following });
+                this.loadPosts(data._id);
             }
         });
 
+    };
+
+    loadPosts = userId => {
+        const token = isAuthenticated().token;
+        listByUser(userId, token).then(data => {
+            if (data.error) {
+                console.log(data.error);
+            } else {
+                this.setState({ posts: data });
+            }
+        });
     };
 
 
@@ -88,7 +102,7 @@ class Profile extends Component {
     };
 
     render() {
-        const { redirectToSignin, user } = this.state;
+        const { redirectToSignin, user, posts } = this.state;
         if (redirectToSignin) return <Redirect to="/signin" />
 
         const photoUrl = user._id
@@ -98,59 +112,94 @@ class Profile extends Component {
             : DefaultProfile;
 
 
-        return (
-            <div className="container">
-                <h2 className="mt-5 mb-5">Profile</h2>
-                <div className="row">
-
-                    <img
+            return (
+                <div className="container">
+                  <h2 className="mt-5 mb-5">Profile</h2>
+                  <div className="row">
+                    <div className="col-md-4">
+                      <img
                         style={{ height: "200px", width: "auto" }}
                         className="img-thumbnail"
                         src={photoUrl}
                         onError={i => (i.target.src = `${DefaultProfile}`)}
                         alt={user.name}
-                    />
-
-                    <div className="col-md-6">
-                        <img src="" className="card-img-top" src={DefaultProfile} alt="Card image cap" alt={user.name} style={{ width: '100%', height: '15vw', objectFit: 'cover' }} />
-
+                      />
                     </div>
-
-                    <div className="col-md-6">
-
-                        <div className="lead mt-2">
-                            <p>Hello {user.name}</p>
-                            <p>Email {user.email}</p>
-                            <p>{`Joined ${new Date(user.created).toDateString()}`}</p>
+          
+                    <div className="col-md-8">
+                      <div className="lead mt-2">
+                        <p>Hello {user.name}</p>
+                        <p>Email: {user.email}</p>
+                        <p>{`Joined ${new Date(user.created).toDateString()}`}</p>
+                      </div>
+          
+                      {isAuthenticated().user &&
+                      isAuthenticated().user._id === user._id ? (
+                        <div className="d-inline-block">
+                          <Link
+                            className="btn btn-raised btn-info mr-5"
+                            to={`/post/create`}
+                          >
+                            Create Post
+                          </Link>
+          
+                          <Link
+                            className="btn btn-raised btn-success mr-5"
+                            to={`/user/edit/${user._id}`}
+                          >
+                            Edit Profile
+                          </Link>
+                          <DeleteUser userId={user._id} />
                         </div>
-
-                        {isAuthenticated().user && isAuthenticated().user._id === user._id ? (
-                            <div className="d-inline-block" >
-                                <Link className="btn btn-raised btn-success mr-5" to={`/user/edit/${user._id}`}> Edit Profile</Link>
-                                <DeleteUser Id={user._id} />
+                      ) : (
+                        <FollowProfileButton
+                          following={this.state.following}
+                          onButtonClick={this.clickFollowButton}
+                        />
+                      )}
+          
+                      <div>
+                        {isAuthenticated().user &&
+                          isAuthenticated().user.role === "admin" && (
+                            <div class="card mt-5">
+                              <div className="card-body">
+                                <h5 className="card-title">Admin</h5>
+                                <p className="mb-2 text-danger">
+                                  Edit/Delete as an Admin
+                                </p>
+                                <Link
+                                  className="btn btn-raised btn-success mr-5"
+                                  to={`/user/edit/${user._id}`}
+                                >
+                                  Edit Profile
+                                </Link>
+                                {/*<DeleteUser userId={user._id} />*/}
+                                <DeleteUser />
+                              </div>
                             </div>
-                        ) : (
-                                <FollowProfileButton following={this.state.following} onButtonClick={this.clickFollowButton} />
-                            )}
-                        
+                          )}
+                      </div>
                     </div>
-                </div>
-
-                <div className="row">
+                  </div>
+                  <div className="row">
                     <div className="col md-12 mt-5 mb-5">
-                        <hr />
-                        <p className="lead">{user.about}</p>
-                        <ProfileTabs followers={user.followers} following={user.following} />
-                        <hr />
+                      <hr />
+                      <p className="lead">{user.about}</p>
+                      <hr />
+          
+                      <ProfileTabs
+                        followers={user.followers}
+                        following={user.following}
+                        posts={posts}
+                      />
                     </div>
-                    </div>
-
+                  </div>
                 </div>
-        );
-    }
-};
-
-export default Profile;
+              );
+            }
+          }
+          
+          export default Profile;
 
 //if authenticated user and his id matches the profile then he can edit
 
