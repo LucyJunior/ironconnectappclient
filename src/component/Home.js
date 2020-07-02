@@ -1,17 +1,27 @@
 import React from 'react';
 import Posts from '../component/post/Posts';
+import './Home.css';
 
 const Home = () => (
-    <div>
-      <div className="jumbotron">
-        <h2>Home</h2>
+
+<div class="area" >
+<div class="bg"></div>
+<div class="bg bg2"></div>
+<div class="bg bg3"></div>
+
+
+
+    
+      <div className="jumbotron header">
         <h3>Hello Ironhacker</h3>  
-        <p>Welcome to IronConnect</p>
+        <p>Welcome to your network</p>
       </div>
       <div className="container">
         <Posts />
       </div>
-    </div>
+    
+            </div>
+    
   );
   
   export default Home;

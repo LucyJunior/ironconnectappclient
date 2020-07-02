@@ -1,0 +1,82 @@
+body{
+    margin: 0;
+    padding: 0;
+    animation: bgcolor infinite 20s;
+}
+
+
+.header {
+    background: url(../images/wdft-remote.png) no-repeat center;
+    background-size: 600px;
+    min-height: 50vh;
+    background-position: right;
+  }
+
+  h3 {
+    font-family: arial;
+    font-size: 4em;
+    color:#fff;
+    top: 50% ;
+    text-align: left;
+}
+
+@keyframes bgcolor{
+    0%
+    {
+        background:#4FC3F7 ;
+    }
+    20%
+    {
+        background: #74b9ff ;
+    }
+    40%
+    {
+        background: #1B9CFC;
+    }
+    60%
+    {
+        background: #34ace0;
+    }
+    80%
+    {
+        background:#182C61;
+     
+    }
+    100%
+    {
+        background: #1e90ff;
+    }
+}
+ 
+.bg {
+    animation:slide 3s ease-in-out infinite alternate;
+    background-image: linear-gradient(-60deg, #4FC3F7 50%, #182C61 50%);
+    bottom:0;
+    left:-50%;
+    opacity:.5;
+    position:fixed;
+    right:-50%;
+    top:0;
+    z-index:-1;
+  }
+  
+  .bg2 {
+    animation-direction:alternate-reverse;
+    animation-duration:4s;
+  }
+  
+  .bg3 {
+    animation-duration:5s;
+  }
+  
+
+  @keyframes slide {
+    0% {
+      transform:translateX(-25%);
+    }
+    100% {
+      transform:translateX(25%);
+    }
+  }
+
+

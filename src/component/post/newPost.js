@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { isAuthenticated } from '../auth';
-import { create } from '../../component/post/newPost';
+import { create } from './apiPost';
 import { Redirect } from 'react-router-dom';
 import DefaultPost from '../../images/Ironhack.png';
 
@@ -27,9 +27,9 @@ class NewPost extends Component {
 
     isValid = () => {
         const { title, body, fileSize } = this.state;
-        if (fileSize > 100000) {
+        if (fileSize > 80000) {
             this.setState({
-                error: "File size should be less than 100kb",
+                error: "File size should be less than 80kb",
                 loading: false
             });
             return false;
@@ -150,3 +150,6 @@ class NewPost extends Component {
         );
     }
 }
+
+
+export default NewPost;

@@ -86,6 +86,7 @@ export const updateUser = (user, next) => {
 };
 
 export const follow = (Id, token, followId) => {
+    console.log(Id, followId )
     if (!followId) {
         return {
             err: 'Please send FollowID '
@@ -108,6 +109,7 @@ export const follow = (Id, token, followId) => {
 };
 
 export const unfollow = (Id, token, unfollowId) => {
+    console.log('Unfollow',Id, unfollowId)
     return fetch(`${config.REACT_APP_API_URL}/api/user/unfollow`, {
         method: "PUT",
         headers: {

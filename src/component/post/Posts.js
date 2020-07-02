@@ -30,19 +30,11 @@ class Posts extends Component {
         this.loadPosts(this.state.page);
     }
 
-    loadMore = number => {
-        this.setState({ page: this.state.page + number });
-        this.loadPosts(this.state.page + number);
-    };
 
-    loadLess = number => {
-        this.setState({ page: this.state.page - number });
-        this.loadPosts(this.state.page - number);
-    };
 
     renderPosts = posts => {
         return (
-            <div className="row">
+            <div className="row mb-5">
                 {posts.map((post, i) => {
                     const posterId = post.postedBy
                         ? `/user/${post.postedBy._id}`
@@ -52,9 +44,9 @@ class Posts extends Component {
                         : " Unknown";
 
                     return (
-                        <div className="card col-md-4" key={i}>
-                            <div className="card-body">
-                                <img
+                        <div className="card-body card-cascade wider col-md-3 mb-5 mt-2 ml-5 " key={i}>
+                            <div className="card-body view view-cascade overlay">
+                                <img 
                                     src={`${
                                         process.env.REACT_APP_API_URL
                                     }/post/photo/${post._id}`}
@@ -62,15 +54,15 @@ class Posts extends Component {
                                     onError={i =>
                                         (i.target.src = `${DefaultPost}`)
                                     }
-                                    className="img-thunbnail mb-3"
+                                    className="card-img-top  mb-3"
                                     style={{ height: "200px", width: "100%" }}
                                 />
-                                <h5 className="card-title">{post.title}</h5>
+                                <h5 className="card-title"><strong>{post.title}</strong></h5>
                                 <p className="card-text">
                                     {post.body.substring(0, 100)}
                                 </p>
                                 <br />
-                                <p className="font-italic mark">
+                                <p className="card-footer text-white text-center mt-4 font-italic mark btn-info bg-info rounded">
                                     Posted by{" "}
                                     <Link to={`${posterId}`}>
                                         {posterName}{" "}
@@ -79,7 +71,7 @@ class Posts extends Component {
                                 </p>
                                 <Link
                                     to={`/post/${post._id}`}
-                                    className="btn btn-raised btn-primary btn-sm"
+                                    className="btn btn-raised btn-info btn-sm rounded"
                                 >
                                     Read more
                                 </Link>
@@ -95,34 +87,14 @@ class Posts extends Component {
     render() {
         const { posts, page } = this.state;
         return (
-            <div className="container">
-                <h2 className="mt-5 mb-5">
-                    {!posts.length ? "No more posts!" : "Recent Posts"}
+            <div className="container mb-5 text-center text-white ">
+                <h2 className="mt-5 mb-5 bg-info">
+                    {!posts.length ? "There's no posts yet!" : "Recent Posts"}
                 </h2>
 
                 {this.renderPosts(posts)}
 
-                {page > 1 ? (
-                    <button
-                        className="btn btn-raised btn-warning mr-5 mt-5 mb-5"
-                        onClick={() => this.loadLess(1)}
-                    >
-                        Previous ({this.state.page - 1})
-                    </button>
-                ) : (
-                    ""
-                )}
-
-                {posts.length ? (
-                    <button
-                        className="btn btn-raised btn-success mt-5 mb-5"
-                        onClick={() => this.loadMore(1)}
-                    >
-                        Next ({page + 1})
-                    </button>
-                ) : (
-                    ""
-                )}
+                
             </div>
         );
     }

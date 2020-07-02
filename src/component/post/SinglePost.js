@@ -13,15 +13,16 @@ class SinglePost extends Component {
 
     componentDidMount = () => {
         const postId = this.props.match.params.postId;
+
+            
+
         singlePost(postId).then(data => {
             if (data.error) {
                 console.log(data.error);
             } else {
                 this.setState({
                     post: data,
-                    likes: data.likes.length,
-                    like: this.checkLike(data.likes),
-                    comments: data.comments
+                
                 });
             }
         });
@@ -67,24 +68,6 @@ class SinglePost extends Component {
                     }}
                 />
 
-                {like ? (
-                    <h3 onClick={this.likeToggle}>
-                        <i
-                            className="fa fa-thumbs-up text-success bg-dark"
-                            style={{ padding: '10px', borderRadius: '50%' }}
-                        />{' '}
-                        {likes} Like
-                    </h3>
-                ) : (
-                    <h3 onClick={this.likeToggle}>
-                        <i
-                            className="fa fa-thumbs-up text-warning bg-dark"
-                            style={{ padding: '10px', borderRadius: '50%' }}
-                        />{' '}
-                        {likes} Like
-                    </h3>
-                )}
-
                 <p className="card-text">{post.body}</p>
                 <br />
                 <p className="font-italic mark">
@@ -114,9 +97,9 @@ class SinglePost extends Component {
     };
 
     render() {
-        const { post, redirectToHome, redirectToSignin, comments } = this.state;
+        const { post, redirectToHome, redirectToSignin } = this.state;
 
-        if (redirectToHome) {
+        if (redirectToHome ) {
             return <Redirect to={`/`} />;
         } else if (redirectToSignin) {
             return <Redirect to={`/signin`} />;
@@ -126,7 +109,7 @@ class SinglePost extends Component {
             <div className="container">
                 <h2 className="display-2 mt-5 mb-5">{post.title}</h2>
 
-                {!post ? (
+                {!post? (
                     <div className="jumbotron text-center">
                         <h2>Loading...</h2>
                     </div>
@@ -134,7 +117,7 @@ class SinglePost extends Component {
                     this.renderPost(post)
                 )}
 
-                <Comment postId={post._id} comments={comments.reverse()} updateComments={this.updateComments} />
+              
             </div>
         );
     }

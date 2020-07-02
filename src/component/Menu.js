@@ -1,22 +1,24 @@
 import React from 'react'
 import { Link, withRouter } from 'react-router-dom';
 import { signout, isAuthenticated} from '../component/auth'
+import './Menu.css';
 
 //changing link color
 //this two arguments, if matches it gives a color otherwise all the links will have a different color
 const isActive = (history, path) => {
     if (history.location.pathname === path) return { color: "#ff9900" };
-    else return { color: "#ffffff" }
+    else return { color: " #3385ff" }
 }
 
 
 //props
 const Menu = ({ history }) => (
 
-    <div>
+    <div className="container-fluid">
+    <div className=" navbar-center ">
 
-        <ul className="nav nav-tabs bg-dark">
-            <li className="nav-item">
+        <ul className="nav nav-tabs">
+            <li className="nav-item ">
                 <Link className="nav-link" style={isActive(history, /*path*/ "/")} to="/">Home</Link>
 
             </li>
@@ -41,7 +43,7 @@ const Menu = ({ history }) => (
             {isAuthenticated() && (
                 <>
 
-                    <Link className="nav-link" style={isActive(history, "/post/create")} to="//post/create">Create Post</Link>
+                    <Link className="nav-link" style={isActive(history, "/post/create")} to="/post/create">Create Post</Link>
 
                     <li className="nav-item">
                     <Link
@@ -65,6 +67,8 @@ const Menu = ({ history }) => (
         </ul>
 
     </div>
+    </div>
+    
 );
 
 export default withRouter(Menu);

@@ -75,6 +75,7 @@ class Profile extends Component {
     loadPosts = userId => {
         const token = isAuthenticated().token;
         listByUser(userId, token).then(data => {
+          console.log(data)
             if (data.error) {
                 console.log(data.error);
             } else {
