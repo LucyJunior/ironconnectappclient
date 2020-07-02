@@ -7,6 +7,7 @@ import Signin from './component/user/Signin';
 import Profile from './component/user/Profile';
 import Users from './component/user/Users';
 import EditProfile from './component/user/EditProfile';
+import newPost from './component/post/newPost';
 
 const MainRouter = () => (
 
@@ -19,6 +20,7 @@ const MainRouter = () => (
             <Route exact path="/signup" component={Signup} />
             <Route exact path="/signin" component={Signin} />
             <Route exact path="/user/edit/:Id" component={EditProfile} />
+            <Route exact path="/post/create" component={newPost} />
             <Route exact path="/api/user/:Id" component={Profile} />
         </Switch>
     </div>

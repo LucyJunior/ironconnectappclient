@@ -1,10 +1,17 @@
-import React from 'react'
+import React from 'react';
+import Posts from '../component/post/Posts';
 
 const Home = () => (
-    <div className="jumbotron">
+    <div>
+      <div className="jumbotron">
         <h2>Home</h2>
-        <p className="lead">Welcome to react</p>
+        <h3>Hello Ironhacker</h3>  
+        <p>Welcome to IronConnect</p>
+      </div>
+      <div className="container">
+        <Posts />
+      </div>
     </div>
-);
-
-export default Home;
+  );
+  
+  export default Home;

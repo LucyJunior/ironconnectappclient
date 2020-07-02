@@ -5,6 +5,7 @@ import { read } from '../user/apiUser';
 import DefaultProfile from '../../images/avatar2.png';
 import DeleteUser from '../user/DeleteUser';
 import FollowProfileButton from './FollowProfileButton';
+import ProfileTabs from './ProfileTabs';
 
 
 class Profile extends Component {
@@ -12,22 +13,22 @@ class Profile extends Component {
     constructor() {
         super()
         this.state = {
-            user: {following: [], followers: []},
+            user: { following: [], followers: [] },
             redirectToSignin: false,
             following: false,
             error: ''
         };
     }
 
-     //check if we are following an user or not
-     checkFollow = user => {
+    //check if we are following an user or not
+    checkFollow = user => {
         const jwt = isAuthenticated();
         console.log(user.followers)
         const match = user.followers.find(follower => {
             //one id has many other followers and the other way around
             //if is found is already in the following list
             console.log(follower)
-            return follower._Id == jwt.user._id
+            return follower._id == jwt.user._id
         })
         return match
     };
@@ -39,13 +40,13 @@ class Profile extends Component {
         const token = isAuthenticated().token;
 
         apiCall(Id, token, this.state.user._id)
-        .then(data => {
-            if(data.error) {
-                this.setState({error: data.error})
-            } else {
-                this.setState({user: data, following: !this.state.following})
-            }
-        });
+            .then(data => {
+                if (data.error) {
+                    this.setState({ error: data.error })
+                } else {
+                    this.setState({ user: data, following: !this.state.following })
+                }
+            });
 
     };
 
@@ -90,14 +91,28 @@ class Profile extends Component {
         const { redirectToSignin, user } = this.state;
         if (redirectToSignin) return <Redirect to="/signin" />
 
+        const photoUrl = user._id
+            ? `${
+            process.env.REACT_APP_API_URL
+            }/api/user/photo/${user._id}?${new Date().getTime()}`
+            : DefaultProfile;
+
 
         return (
             <div className="container">
                 <h2 className="mt-5 mb-5">Profile</h2>
                 <div className="row">
 
+                    <img
+                        style={{ height: "200px", width: "auto" }}
+                        className="img-thumbnail"
+                        src={photoUrl}
+                        onError={i => (i.target.src = `${DefaultProfile}`)}
+                        alt={user.name}
+                    />
+
                     <div className="col-md-6">
-                   <img src="" className="card-img-top" src={DefaultProfile} alt="Card image cap" alt={user.name} style={{ width: '100%', height: '15vw', objectFit: 'cover' }} />
+                        <img src="" className="card-img-top" src={DefaultProfile} alt="Card image cap" alt={user.name} style={{ width: '100%', height: '15vw', objectFit: 'cover' }} />
 
                     </div>
 
@@ -115,12 +130,22 @@ class Profile extends Component {
                                 <DeleteUser Id={user._id} />
                             </div>
                         ) : (
-                            <FollowProfileButton  following={this.state.following} onButtonClick={this.clickFollowButton} />
-                        )}
-
+                                <FollowProfileButton following={this.state.following} onButtonClick={this.clickFollowButton} />
+                            )}
+                        
                     </div>
                 </div>
-            </div>
+
+                <div className="row">
+                    <div className="col md-12 mt-5 mb-5">
+                        <hr />
+                        <p className="lead">{user.about}</p>
+                        <ProfileTabs followers={user.followers} following={user.following} />
+                        <hr />
+                    </div>
+                    </div>
+
+                </div>
         );
     }
 };

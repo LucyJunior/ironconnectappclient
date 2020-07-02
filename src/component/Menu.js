@@ -41,11 +41,7 @@ const Menu = ({ history }) => (
             {isAuthenticated() && (
                 <>
 
-                    <li className="nav-item">
-                        <span className="nav-link" style={(isActive(history, /*path*/ "/signout"), { cursor: "pointer", color: "#fff" })
-                        }
-                            onClick={() => signout(() => history.push('/'))}>Sign Out</span>
-                    </li>
+                    <Link className="nav-link" style={isActive(history, "/post/create")} to="//post/create">Create Post</Link>
 
                     <li className="nav-item">
                     <Link
@@ -55,6 +51,12 @@ const Menu = ({ history }) => (
                         >
                             {`${isAuthenticated().user.name}'s profile`}
                         </Link>
+                    </li>
+
+                    <li className="nav-item">
+                        <span className="nav-link" style={(isActive(history, /*path*/ "/signout"), { cursor: "pointer", color: "#fff" })
+                        }
+                            onClick={() => signout(() => history.push('/'))}>Sign Out</span>
                     </li>
 
                 </>

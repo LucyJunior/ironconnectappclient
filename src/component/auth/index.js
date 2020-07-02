@@ -1,8 +1,8 @@
-
+import config from '../../config'
 
 export const signup = user => {
 
-    return fetch(`${process.env.REACT_APP_API_URL}/api/signup`, {
+    return fetch(`${config.REACT_APP_API_URL}/api/signup`, {
        method: 'POST',
         headers: {
             Accept: 'application/json',
@@ -20,7 +20,7 @@ export const signup = user => {
 
 export const signin = user => {
 
-    return fetch(`${process.env.REACT_APP_API_URL}/api/signin`, {
+    return fetch(`${config.REACT_APP_API_URL}/api/signin`, {
        method: 'POST',
         headers: {
             Accept: "application/json",
@@ -50,7 +50,7 @@ export const authenticate = (jwt, next) => {
     if (typeof window !== "undefined") localStorage.removeItem("jwt");
     next();
     //once we remove it, redirect the user
-    return fetch(`${process.env.REACT_APP_API_URL}/sigout`, {
+    return fetch(`${config.REACT_APP_API_URL}/sigout`, {
         method: "GET"
     })
         .then(response => {

@@ -31,7 +31,15 @@ class Users extends Component {
             {users.map((user, i) => {
 
                 return <div className="card col-md-4" style={{ width: "18rem" }} key={i}>
-                    <img src="" className="card-img-top" src={DefaultProfile} alt="Card image cap" alt={user.name} style={{width: '100%', height: '15vw', objectFit: 'cover'}} />
+                     <img
+          style={{ height: "200px", width: "auto" }}
+          className="img-thumbnail"
+          src={`${
+            process.env.REACT_APP_API_URL
+          }/api/user/photo/${user._id}`}
+          onError={i => (i.target.src = `${DefaultProfile}`)}
+          alt={user.name}
+        />
                     <div className="card-body">
                         <h5 className="card-title">{user.name}</h5>
                         <p className="card-text">{user.email}</p>
