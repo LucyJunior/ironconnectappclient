@@ -115,7 +115,7 @@ class Profile extends Component {
 
             return (
                 <div className="container">
-                  <h2 className="mt-5 mb-5">Profile</h2>
+                  <h2 className="mt-5 mb-5 text-center text-white bg-info">Profile</h2>
                   <div className="row">
                     <div className="col-md-4">
                       <img
@@ -128,7 +128,7 @@ class Profile extends Component {
                     </div>
           
                     <div className="col-md-8">
-                      <div className="lead mt-2">
+                      <div className="lead mt-2 text-white">
                         <p>Hello {user.name}</p>
                         <p>Email: {user.email}</p>
                         <p>{`Joined ${new Date(user.created).toDateString()}`}</p>
@@ -145,7 +145,7 @@ class Profile extends Component {
                           </Link>
           
                           <Link
-                            className="btn btn-raised btn-success mr-5"
+                            className="btn btn-raised btn-muted mr-5"
                             to={`/user/edit/${user._id}`}
                           >
                             Edit Profile
@@ -159,31 +159,11 @@ class Profile extends Component {
                         />
                       )}
           
-                      <div>
-                        {isAuthenticated().user &&
-                          isAuthenticated().user.role === "admin" && (
-                            <div class="card mt-5">
-                              <div className="card-body">
-                                <h5 className="card-title">Admin</h5>
-                                <p className="mb-2 text-danger">
-                                  Edit/Delete as an Admin
-                                </p>
-                                <Link
-                                  className="btn btn-raised btn-success mr-5"
-                                  to={`/user/edit/${user._id}`}
-                                >
-                                  Edit Profile
-                                </Link>
-                                {/*<DeleteUser userId={user._id} />*/}
-                                <DeleteUser />
-                              </div>
-                            </div>
-                          )}
-                      </div>
+                    
                     </div>
                   </div>
                   <div className="row">
-                    <div className="col md-12 mt-5 mb-5">
+                    <div className="col md-12 mt-5 mb-5 ">
                       <hr />
                       <p className="lead">{user.about}</p>
                       <hr />

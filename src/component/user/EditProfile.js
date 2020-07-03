@@ -40,37 +40,6 @@ class EditProfile extends Component {
 
     }
 
-    // isValid = () => {
-    //     const { name, email, password, fileSize } = this.state;
-    //     if (fileSize > 1000000) {
-    //       this.setState({
-    //         error: "File size should be less than 100kb",
-    //         loading: false
-    //       });
-    //       return false;
-    //     }
-    //     if (name.length === 0) {
-    //       this.setState({ error: "Name is required", loading: false });
-    //       return false;
-    //     }
-    //     // email@domain.com
-    //     if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
-    //       this.setState({
-    //         error: "A valid Email is required",
-    //         loading: false
-    //       });
-    //       return false;
-    //     }
-    //     if (password.length >= 1 && password.length <= 5) {
-    //       this.setState({
-    //         error: "Password must be at least 6 characters long",
-    //         loading: false
-    //       });
-    //       return false;
-    //     }
-    //     return true;
-    //   };
-
     handleChange = name => event => {
         const value = name === 'photo' ? event.target.files[0] : event.target.value
         this.userData.set(name, value)

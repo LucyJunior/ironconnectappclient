@@ -20,6 +20,14 @@ body{
     text-align: left;
 }
 
+h4 {
+  font-family: arial;
+  font-size: 2em;
+  color:#fff;
+  top: 50% ;
+  text-align: left;
+}
+
 @keyframes bgcolor{
     0%
     {

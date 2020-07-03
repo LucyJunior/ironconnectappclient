@@ -12,9 +12,9 @@ const Home = () => (
 
 
     
-      <div className="jumbotron header">
-        <h3>Hello Ironhacker</h3>  
-        <p>Welcome to your network</p>
+      <div className="jumbotron header ">
+        <h3 className>Hello Ironhacker</h3>  
+        <h4>Share | Connect | Repeat </h4>
       </div>
       <div className="container">
         <Posts />

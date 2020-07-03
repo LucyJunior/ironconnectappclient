@@ -71,7 +71,7 @@ class Posts extends Component {
                                 </p>
                                 <Link
                                     to={`/post/${post._id}`}
-                                    className="btn btn-raised btn-info btn-sm rounded"
+                                    className="btn btn-raised btn-muted btn-sm rounded text-white"
                                 >
                                     Read more
                                 </Link>

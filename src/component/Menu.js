@@ -6,8 +6,8 @@ import './Menu.css';
 //changing link color
 //this two arguments, if matches it gives a color otherwise all the links will have a different color
 const isActive = (history, path) => {
-    if (history.location.pathname === path) return { color: "#ff9900" };
-    else return { color: " #3385ff" }
+    if (history.location.pathname === path) return { color: "#3385ff" };
+    else return { color: " #ffff" }
 }
 
 

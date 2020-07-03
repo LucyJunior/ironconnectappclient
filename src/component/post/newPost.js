@@ -3,6 +3,7 @@ import { isAuthenticated } from '../auth';
 import { create } from './apiPost';
 import { Redirect } from 'react-router-dom';
 import DefaultPost from '../../images/Ironhack.png';
+import { Link } from "react-router-dom";
 
 
 class NewPost extends Component {
@@ -76,7 +77,7 @@ class NewPost extends Component {
     newPostForm = (title, body) => (
         <form>
             <div className="form-group">
-                <label className="text-muted">Post Photo</label>
+                <label className="text-white">Post Photo</label>
                 <input
                     onChange={this.handleChange("photo")}
                     type="file"
@@ -85,7 +86,7 @@ class NewPost extends Component {
                 />
             </div>
             <div className="form-group">
-                <label className="text-muted">Title</label>
+                <label className="text-white">Title</label>
                 <input
                     onChange={this.handleChange("title")}
                     type="text"
@@ -95,7 +96,7 @@ class NewPost extends Component {
             </div>
 
             <div className="form-group">
-                <label className="text-muted">Body</label>
+                <label className="text-white">Body</label>
                 <textarea
                     onChange={this.handleChange("body")}
                     type="text"
@@ -104,9 +105,10 @@ class NewPost extends Component {
                 />
             </div>
 
-            <button
-                onClick={this.clickSubmit}
-                className="btn btn-raised btn-dark"
+            <button to={`/`}
+            onClick={this.clickSubmit}
+                
+                className="btn btn-raised btn-info btn-sm rounded"
             >
                 Create Post
             </button>
@@ -129,7 +131,7 @@ class NewPost extends Component {
 
         return (
             <div className="container">
-                <h2 className="mt-5 mb-5">Create a new post</h2>
+                <h2 className="mt-5 mb-5 text-center text-white bg-info">Create a new post</h2>
                 <div
                     className="alert alert-danger"
                     style={{ display: error ? "" : "none" }}
@@ -138,7 +140,7 @@ class NewPost extends Component {
                 </div>
 
                 {loading ? (
-                    <div className="jumbotron text-center">
+                    <div className="jumbotron text-center text-info">
                         <h2>Loading...</h2>
                     </div>
                 ) : (
