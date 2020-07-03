@@ -52,10 +52,8 @@ class SinglePost extends Component {
         const posterId = post.postedBy ? `/user/${post.postedBy._id}` : '';
         const posterName = post.postedBy ? post.postedBy.name : ' Unknown';
 
-        const { like, likes } = this.state;
-
         return (
-            <div className="card-body">
+            <div className="card-body text-center text-dark">
                 <img
                     src={`${process.env.REACT_APP_API_URL}/post/photo/${post._id}`}
                     alt={post.title}
@@ -68,22 +66,22 @@ class SinglePost extends Component {
                     }}
                 />
 
-                <p className="card-text">{post.body}</p>
+                <p className="card-text text-center text-white">{post.body}</p>
                 <br />
-                <p className="font-italic mark">
+                <p className="font-italic mark text-center text-white">
                     Posted by <Link to={`${posterId}`}>{posterName} </Link>
                     on {new Date(post.created).toDateString()}
                 </p>
                 <div className="d-inline-block">
-                    <Link to={`/`} className="btn btn-raised btn-primary btn-sm mr-5">
+                    <Link to={`/`} className="btn btn-raised btn-muted btn-sm mr-5">
                         Back to posts
                     </Link>
 
                     <>
                         {isAuthenticated().user && isAuthenticated().user._id === post.postedBy._id && (
                             <div class="card mt-5">
-                                <div className="card-body">
-                                    <button onClick={this.deleteConfirmed} className="btn btn-raised btn-danger">
+                                <div className="">
+                                    <button onClick={this.deleteConfirmed} className="btn btn-raised btn-muted">
                                         Delete Posts
                                     </button>
                                 </div>
@@ -107,7 +105,7 @@ class SinglePost extends Component {
 
         return (
             <div className="container">
-                <h2 className="display-2 mt-5 mb-5">{post.title}</h2>
+                <h2 className="display-2 mt-5 mb-5 text-center text-white">{post.title}</h2>
 
                 {!post? (
                     <div className="jumbotron text-center">

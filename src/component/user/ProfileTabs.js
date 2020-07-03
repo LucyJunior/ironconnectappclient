@@ -11,7 +11,7 @@ class ProfileTabs extends Component {
                 <div className="row">
                     <div className="col-md-4">
 
-                        <h3 className="text-primary">
+                        <h3 className="text-light">
                             {followers.length} Followers
                         </h3>
                         <hr />
@@ -36,7 +36,7 @@ class ProfileTabs extends Component {
                                             alt={person.name}
                                         />
                                         <div>
-                                            <p className="lead">
+                                            <p className="lead text-white">
                                                 {person.name}
                                             </p>
                                         </div>
@@ -48,8 +48,8 @@ class ProfileTabs extends Component {
                     </div>
 
                     <div className="col-md-4">
-                        <h3 className="text-primary">
-                            {following.length} Followers
+                        <h3 className="text-light">
+                            {following.length} Following
                         </h3>
                         <hr />
                         {following.map((person, i) => (
@@ -73,7 +73,7 @@ class ProfileTabs extends Component {
                                             alt={person.name}
                                         />
                                         <div>
-                                            <p className="lead">
+                                            <p className="lead text-white">
                                                 {person.name}
                                             </p>
                                         </div>
@@ -86,14 +86,14 @@ class ProfileTabs extends Component {
 
 
                 <div className="col-md-4">
-                    <h3 className="text-primary">{posts.length} Posts</h3>
+                    <h3 className="text-light">{posts.length} Posts</h3>
                     <hr />
                     {posts.map((post, i) => (
                         <div key={i}>
                             <div>
                                 <Link to={`/post/${post._id}`}>
                                     <div>
-                                        <p className="lead">{post.title}</p>
+                                        <p className="lead text-white">{post.title}</p>
                                     </div>
                                 </Link>
                             </div>
